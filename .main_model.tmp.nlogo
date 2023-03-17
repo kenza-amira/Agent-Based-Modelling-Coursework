@@ -286,21 +286,7 @@ to change-behavior
   ]
 end
 
-; Human moving function
-to move
-    let xcor-bound 16 ; set x-coordinate bound
-    let ycor-bound 0 ; set y-coordinate bound
 
-    ; move turtles randomly within the bounds
-    let new-xcor xcor + random-float 2 - 1 ; random-float generates a number between -1 and 1
-    let new-ycor ycor + random-float 2 - 1
-
-    ; bound turtle movements to bottom half of world
-    if new-xcor <= xcor-bound and new-ycor <= ycor-bound [
-      set xcor new-xcor
-      set ycor new-ycor
-    ]
-end
 
 ; human reproducing function
 to reproduce
@@ -481,7 +467,7 @@ tree-growth-rate
 tree-growth-rate
 0
 10
-2.0
+7.2
 0.2
 1
 NIL
