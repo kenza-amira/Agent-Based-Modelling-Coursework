@@ -47,7 +47,7 @@ to setup
   reset-ticks
 
   ;Carbon emissions
-  set total-carbon-emissions 0
+  set total-carbon-emissions 100000
 
   ; the carbon tax to individuals
   set carbon-tax 0.1
@@ -57,47 +57,54 @@ to setup
 
   set plant-policy false
 
+
   ; tree set up
   create-trees num-trees [
     set age random 30
+    hide-turtle
     set absorption-rate random-float 20
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
-    setxy one-of (range -16 16 0.01) one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
+    setxy random-xcor one-of (range 8 16 0.1) + sin(xcor * 0.1) * 15
     set shape "tree"
     set color green
-    set size 0.4
+    set size 1
   ]
   ;set-default-shape trees "circle"
 
   ; human set up
   create-humans num-good-turtles [
-    setxy one-of (range -15 15 0.01) one-of (range -15 1 0.01)
+    setxy random-xcor one-of (range -7 8 0.01)
     set color green
     set behavior "good"
     set shape "person"
     set carbon-emissions 0.1
+    hide-turtle
   ]
     create-humans num-average-turtles [
-    setxy one-of (range -15 15 0.01) one-of (range -15 1 0.01)
+    setxy random-xcor one-of (range -7 8 0.01)
     set color yellow
     set behavior "average"
     set shape "person"
     set carbon-emissions 0.5
+    hide-turtle
   ]
     create-humans num-bad-turtles [
-    setxy one-of (range -15 15 0.01) one-of (range -15 1 0.01)
+    setxy random-xcor one-of (range -7 8 0.01)
     set color red
     set behavior "poor"
     set shape "person"
     set carbon-emissions 1
+    hide-turtle
   ]
 
   ; company set up
   create-companies num-companies [
 
     set shape "factory"
+    hide-turtle
     set heading 0
-    setxy one-of (range -16 16 0.01) one-of (range 0 8 0.01)
+    set size 3
+    setxy random-xcor one-of (range -15 -8 0.1)
     set age 1
 
     set revenueAmt 100
@@ -107,13 +114,15 @@ to setup
 
     set emissionQty scale * 0.10
     set numTreesCut 0
+    set emissionQtyPerTick 0
   ]
+   ask n-of 100 companies [show-turtle]
 
   ; patch set up
   set-patch-size 15
   resize-world min-pxcor max-pxcor min-pycor max-pycor
   ask patches [
-    set pcolor white ; set the color of each patch to black
+    set pcolor 79
   ]
 
 end
@@ -137,6 +146,7 @@ to go
   if plant-policy [
     plant-policy-on
   ]
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; HUMAN PROCEDURE
@@ -232,6 +242,8 @@ to go
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;INSERT OTHER PROCEDURES HERE
+  ask n-of 150 humans [show-turtle]
+  ask n-of 150 trees [show-turtle]
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,10 +259,10 @@ to tree-reproduce
         set age 0
         set absorption-rate random-float 20
         set growth-rate random-float 0.01 ; set a random growth rate for each tree
-        setxy one-of (range -16 16 0.01)  one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
-        set shape "circle"
+        set shape "tree"
         set color green
-        set size 0.4 ]
+        if random 2 = 1 [hide-turtle]
+        set size 1 ]
   ]
   ]
 end
@@ -306,7 +318,7 @@ end
 ; Human moving function
 to move
     let xcor-bound 16 ; set x-coordinate bound
-    let ycor-bound 0 ; set y-coordinate bound
+    let ycor-bound 8 ; set y-coordinate bound
 
     ; move turtles randomly within the bounds
     let new-xcor xcor + random-float 2 - 1 ; random-float generates a number between -1 and 1
@@ -325,7 +337,6 @@ to reproduce
   let potential-partner one-of humans-on neighbors
   if potential-partner != nobody and random-float 1 < 0.15 [
     hatch-humans 1 [
-    setxy one-of (range -15 15 0.01) one-of (range -15 1 0.01)
       (ifelse
         inheritance [set behavior one-of (list ([behavior] of myself) ([behavior] of potential-partner))]
         [set behavior one-of ["good" "average" "poor"]]
@@ -383,17 +394,6 @@ to act-on-reward [amount]
   )
 end
 
-to save-planet
-  (ifelse
-    behavior = "poor"
-    [set behavior "average"
-      set carbon-emissions 5]
-    behavior = "average"
-    [set behavior  "good"
-      set carbon-emissions 1]
-  )
-end
-
 ; Penalty for companies
 to checkPenPerTick  ; checking for penalties
 
@@ -445,10 +445,10 @@ ticks
 30.0
 
 SLIDER
-16
-420
-188
-453
+13
+317
+185
+350
 num-good-turtles
 num-good-turtles
 100
@@ -460,10 +460,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-16
-461
-188
-494
+13
+358
+185
+391
 num-average-turtles
 num-average-turtles
 100
@@ -475,10 +475,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-15
-501
-187
-534
+193
+336
+365
+369
 num-bad-turtles
 num-bad-turtles
 100
@@ -490,25 +490,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-20
-342
-212
-375
+21
+446
+213
+479
 tree-growth-rate
 tree-growth-rate
 0
 10
-2.0
+4.4
 0.2
 1
 NIL
 HORIZONTAL
 
 BUTTON
-203
-423
-266
-456
+1207
+36
+1270
+69
 NIL
 go
 T
@@ -522,10 +522,10 @@ NIL
 1
 
 BUTTON
-199
-468
-262
-501
+1207
+75
+1270
+108
 NIL
 setup
 NIL
@@ -547,17 +547,17 @@ prob-influence
 prob-influence
 0
 0.15
-0.04
+0.14
 0.02
 1
 NIL
 HORIZONTAL
 
 SWITCH
-16
-244
-144
-277
+13
+256
+141
+289
 reward-driven
 reward-driven
 0
@@ -569,7 +569,7 @@ PLOT
 15
 1031
 188
-co2 Level
+Co2 Level
 NIL
 NIL
 0.0
@@ -580,7 +580,7 @@ true
 false
 "" ""
 PENS
-"Co2" 1.0 0 -16777216 true "" "plot total-carbon-emissions"
+"Co2" 1.0 0 -16777216 true "" "if ticks >= 2[plot total-carbon-emissions]"
 
 SWITCH
 16
@@ -594,11 +594,11 @@ inheritance
 -1000
 
 PLOT
-489
-231
-838
-439
-# Behaviors
+493
+485
+1031
+650
+Behavior Counts
 NIL
 NIL
 0.0
@@ -606,18 +606,18 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"good" 1.0 0 -11085214 true "" "plot count-good"
-"average" 1.0 0 -1184463 true "" "plot count-average"
-"poor" 1.0 0 -5298144 true "" "plot count-poor"
+"good" 1.0 0 -11085214 true "" "if ticks >= 2[plot count-good]"
+"average" 1.0 0 -1184463 true "" "if ticks >= 2[plot count-average]"
+"poor" 1.0 0 -5298144 true "" "if ticks >= 2[plot count-poor]"
 
 PLOT
-843
-231
-1043
-437
+491
+335
+1030
+474
 # trees
 NIL
 NIL
@@ -629,7 +629,7 @@ true
 false
 "" ""
 PENS
-"trees" 1.0 0 -13840069 true "" "plot count trees"
+"trees" 1.0 0 -13840069 true "" "if ticks >= 2[plot count trees]"
 
 TEXTBOX
 16
@@ -655,8 +655,8 @@ TEXTBOX
 16
 210
 420
-237
-If the reward-driven switch is on, humans will take into account carbon-tax and will alter their emissions to maximize a reward
+249
+If the reward-driven switch is on, humans will take into account carbon-tax and will alter their emissions to maximize a reward. The plant policy encourages good humans to plant trees
 10
 117.0
 1
@@ -672,52 +672,52 @@ Humans
 1
 
 TEXTBOX
-19
-299
-169
-317
+20
+403
+170
+421
 Trees
 14
 114.0
 1
 
 TEXTBOX
-20
-321
-297
-339
+21
+425
+298
+443
 Sliders to select rate of tree growth and cutting speed
 10
 117.0
 1
 
 TEXTBOX
-20
-389
-170
-407
+21
+506
+171
+524
 Companies
 14
 114.0
 1
 
 MONITOR
-489
-185
-706
-230
-NIL
+1033
+44
+1198
+89
+Total Carbon Emission
 total-carbon-emissions
-17
+2
 1
 11
 
 PLOT
-1042
-15
-1268
-191
-plot mean [emissionQtyPerTick] of companies
+492
+189
+1030
+331
+Average Emission Quantity Per Tick and Company
 NIL
 NIL
 0.0
@@ -728,46 +728,46 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot mean [emissionQtyPerTick] of companies"
+"Emission Per Tick" 1.0 0 -2139308 true "" "plot mean [emissionQtyPerTick] of companies"
 
 MONITOR
-1059
-219
-1264
-264
-NIL
+1031
+283
+1198
+328
+Average Emission of Companies
 mean [emissionQty] of companies
 3
 1
 11
 
 MONITOR
-1082
-275
-1250
-320
-NIL
+1031
+238
+1199
+283
+Average Company Scale
 mean [scale] of companies
 3
 1
 11
 
 MONITOR
-1068
-335
-1267
-380
-NIL
+1030
+193
+1199
+238
+Average Net Penalty
 mean [netPenalty] of companies
 3
 1
 11
 
 INPUTBOX
-16
-538
-115
-599
+288
+412
+391
+472
 num-trees
 2400.0
 1
@@ -775,10 +775,10 @@ num-trees
 Number
 
 INPUTBOX
-18
-600
-117
-661
+21
+530
+120
+591
 num-companies
 1200.0
 1
@@ -786,59 +786,69 @@ num-companies
 Number
 
 MONITOR
-1088
-390
-1248
-435
-NIL
+1030
+145
+1199
+190
+Average Company Age
 mean [age] of companies
 1
 1
 11
 
 INPUTBOX
-496
-486
-652
-547
+140
+531
+296
+592
 pen-lvl-1
-20000.0
+120000.0
 1
 0
 Number
 
 INPUTBOX
-496
-545
-652
-606
+140
+590
+296
+651
 pen-lvl-2
-40000.0
+140000.0
 1
 0
 Number
 
 INPUTBOX
-496
-603
-652
-664
+297
+556
+453
+617
 pen-lvl-3
-60000.0
+160000.0
 1
 0
 Number
 
 SWITCH
-190
-246
-322
-279
+150
+256
+282
+289
 plant-policy
 plant-policy
 1
 1
 -1000
+
+TEXTBOX
+143
+514
+293
+532
+Penalty Levels
+10
+117.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
