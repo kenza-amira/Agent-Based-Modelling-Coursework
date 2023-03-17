@@ -47,7 +47,7 @@ to setup
   reset-ticks
 
   ;Carbon emissions
-  set total-carbon-emissions 0
+  set total-carbon-emissions 100000
 
   ; the carbon tax to individuals
   set carbon-tax 0.1
@@ -62,7 +62,7 @@ to setup
     set age random 30
     set absorption-rate random-float 20
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
-    setxy (random-float 16) (random-float 16)
+    setxy one-of (range -16 16 0.01) one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
     set shape "tree"
     set color green
     set size 0.4
@@ -97,7 +97,7 @@ to setup
 
     set shape "factory"
     set heading 0
-    setxy (-16 + random-float 16) (random-float 16)
+    setxy one-of (range -16 16 0.01) one-of (range 0 8 0.01)
     set age 1
 
     set revenueAmt 100
@@ -119,7 +119,24 @@ to setup
 end
 
 to go
-
+  ; TREE PROCEDURE
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ask trees [
+    set age age + 1
+    set size size + growth-rate * age * 0.1
+    ; increase size based on growth rate
+    set absorption-rate absorption-rate + 0.25
+    if age >= 30 [
+      die
+    ]
+    set total-carbon-emissions total-carbon-emissions - absorption-rate
+    tree-reproduce
+    ; the tree is 30 years old and generate a new tree in a random nearby patch
+  ]
+  ;Plant Policy function
+  if plant-policy [
+    plant-policy-on
+  ]
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; HUMAN PROCEDURE
@@ -230,13 +247,26 @@ to tree-reproduce
         set age 0
         set absorption-rate random-float 20
         set growth-rate random-float 0.01 ; set a random growth rate for each tree
-        setxy (random-float 16) (random-float 16)
+        setxy one-of (range -16 16 0.01)  one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
         set shape "circle"
         set color green
         set size 0.4 ]
   ]
   ]
 end
+
+to plant-policy-on
+   create-trees count-good * 0.01 [
+    set age 0
+    set absorption-rate random-float 5
+    set growth-rate random-float 0.01 ; set a random growth rate for each tree
+    setxy (random-float 16) (random-float 16)
+    set shape "tree"
+    set color green
+    set size 0.4
+  ]
+end
+
 
 ; HUMAN FUNCTIONS - DO NOT MODIFY
 
@@ -468,7 +498,7 @@ tree-growth-rate
 tree-growth-rate
 0
 10
-2.0
+4.4
 0.2
 1
 NIL
@@ -564,10 +594,10 @@ inheritance
 -1000
 
 PLOT
-489
-231
-838
-439
+550
+485
+1031
+694
 # Behaviors
 NIL
 NIL
@@ -584,10 +614,10 @@ PENS
 "poor" 1.0 0 -5298144 true "" "plot count-poor"
 
 PLOT
-843
-231
-1043
-437
+492
+334
+1031
+473
 # trees
 NIL
 NIL
@@ -672,10 +702,10 @@ Companies
 1
 
 MONITOR
-489
-185
-706
-230
+490
+428
+707
+473
 NIL
 total-carbon-emissions
 17
@@ -683,10 +713,10 @@ total-carbon-emissions
 11
 
 PLOT
-1042
-15
-1268
-191
+492
+189
+1030
+331
 plot mean [emissionQtyPerTick] of companies
 NIL
 NIL
@@ -767,34 +797,34 @@ mean [age] of companies
 11
 
 INPUTBOX
-496
-486
-652
-547
+322
+490
+478
+551
 pen-lvl-1
-20000.0
+120000.0
 1
 0
 Number
 
 INPUTBOX
-496
-545
-652
-606
+322
+549
+478
+610
 pen-lvl-2
-40000.0
+140000.0
 1
 0
 Number
 
 INPUTBOX
-496
-603
-652
-664
+322
+607
+478
+668
 pen-lvl-3
-60000.0
+160000.0
 1
 0
 Number

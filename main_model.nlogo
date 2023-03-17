@@ -62,7 +62,7 @@ to setup
     set age random 30
     set absorption-rate random-float 20
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
-    setxy (random-float 16) (random-float 16)
+    setxy one-of (range -16 16 0.01) one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
     set shape "tree"
     set color green
     set size 0.4
@@ -97,7 +97,7 @@ to setup
 
     set shape "factory"
     set heading 0
-    setxy (-16 + random-float 16) (random-float 16)
+    setxy one-of (range -16 16 0.01) one-of (range 0 8 0.01)
     set age 1
 
     set revenueAmt 100
@@ -247,7 +247,7 @@ to tree-reproduce
         set age 0
         set absorption-rate random-float 20
         set growth-rate random-float 0.01 ; set a random growth rate for each tree
-        setxy (random-float 16) (random-float 16)
+        setxy one-of (range -16 16 0.01)  one-of (range 8 16 0.01) + sin(xcor * 0.5) * 5 + random-float 1
         set shape "circle"
         set color green
         set size 0.4 ]
@@ -256,7 +256,7 @@ to tree-reproduce
 end
 
 to plant-policy-on
-   create-trees 30 [
+   create-trees count-good * 0.01 [
     set age 0
     set absorption-rate random-float 5
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
