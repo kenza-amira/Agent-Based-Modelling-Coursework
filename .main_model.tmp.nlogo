@@ -55,6 +55,8 @@ to setup
   ;Revenue Per Company
   set init-rev-per-company 100
 
+  set plant-policy false
+
   ; tree set up
   create-trees num-trees [
     set age random 30
@@ -117,21 +119,6 @@ to setup
 end
 
 to go
-  ; TREE PROCEDURE
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ask trees [
-    set age age + 1
-    if age >= 30 [
-      die
-    ]
-    set total-carbon-emissions total-carbon-emissions - absorption-rate
-    tree-reproduce
-  ]
-  ; check if the tree is 20 years old and generate a new tree in a random nearby patch
-
-  ask trees [
-    set size size + growth-rate * age * 0.1; increase size based on growth rate
-  ]
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -286,7 +273,21 @@ to change-behavior
   ]
 end
 
+; Human moving function
+to move
+    let xcor-bound 16 ; set x-coordinate bound
+    let ycor-bound 0 ; set y-coordinate bound
 
+    ; move turtles randomly within the bounds
+    let new-xcor xcor + random-float 2 - 1 ; random-float generates a number between -1 and 1
+    let new-ycor ycor + random-float 2 - 1
+
+    ; bound turtle movements to bottom half of world
+    if new-xcor <= xcor-bound and new-ycor <= ycor-bound [
+      set xcor new-xcor
+      set ycor new-ycor
+    ]
+end
 
 ; human reproducing function
 to reproduce
@@ -467,7 +468,7 @@ tree-growth-rate
 tree-growth-rate
 0
 10
-7.2
+2.0
 0.2
 1
 NIL
@@ -797,6 +798,17 @@ pen-lvl-3
 1
 0
 Number
+
+SWITCH
+190
+246
+322
+279
+plant-policy
+plant-policy
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?

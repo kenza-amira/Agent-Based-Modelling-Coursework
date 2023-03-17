@@ -55,6 +55,8 @@ to setup
   ;Revenue Per Company
   set init-rev-per-company 100
 
+  set plant-policy false
+
   ; tree set up
   create-trees num-trees [
     set age random 30
@@ -121,18 +123,20 @@ to go
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ask trees [
     set age age + 1
+    set size size + growth-rate * age * 0.1
+    ; increase size based on growth rate
+    set absorption-rate absorption-rate + 0.25
     if age >= 30 [
       die
     ]
     set total-carbon-emissions total-carbon-emissions - absorption-rate
     tree-reproduce
+    ; the tree is 30 years old and generate a new tree in a random nearby patch
   ]
-  ; check if the tree is 20 years old and generate a new tree in a random nearby patch
-
-  ask trees [
-    set size size + growth-rate * age * 0.1; increase size based on growth rate
+  ;Plant Policy function
+  if plant-policy [
+    plant-policy-on
   ]
-
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; HUMAN PROCEDURE
@@ -250,6 +254,19 @@ to tree-reproduce
   ]
   ]
 end
+
+to plant-policy-on
+   create-trees 30 [
+    set age 0
+    set absorption-rate random-float 5
+    set growth-rate random-float 0.01 ; set a random growth rate for each tree
+    setxy (random-float 16) (random-float 16)
+    set shape "tree"
+    set color green
+    set size 0.4
+  ]
+end
+
 
 ; HUMAN FUNCTIONS - DO NOT MODIFY
 
@@ -811,6 +828,17 @@ pen-lvl-3
 1
 0
 Number
+
+SWITCH
+190
+246
+322
+279
+plant-policy
+plant-policy
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
