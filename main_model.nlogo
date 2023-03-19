@@ -205,7 +205,7 @@ to go
     set revenueAmt (revenueAmt * tickRevenueGrowth)
 
     ;Scale might be a function of revenue amt. Setting equal to it for now
-    set scale revenueAmt
+    set scale (revenueAmt * (ln(age) + 1) )
 
     ;Trees Cut and Emissions
     let tickTreesCut (scale * 0.0001)
