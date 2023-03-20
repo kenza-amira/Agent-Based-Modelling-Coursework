@@ -61,7 +61,7 @@ to setup
   ; tree set up
   create-trees num-trees [
     set age random 30
-    hide-turtle
+    ;hide-turtle
     set absorption-rate random-float 20
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
     setxy random-xcor one-of (range 8 16 0.1) + sin(xcor * 0.1) * 15
@@ -78,7 +78,7 @@ to setup
     set behavior "good"
     set shape "person"
     set carbon-emissions 0.1
-    hide-turtle
+    ;hide-turtle
   ]
     create-humans num-average-turtles [
     setxy random-xcor one-of (range -7 8 0.01)
@@ -86,7 +86,7 @@ to setup
     set behavior "average"
     set shape "person"
     set carbon-emissions 0.5
-    hide-turtle
+    ;hide-turtle
   ]
     create-humans num-bad-turtles [
     setxy random-xcor one-of (range -7 8 0.01)
@@ -94,7 +94,7 @@ to setup
     set behavior "poor"
     set shape "person"
     set carbon-emissions 1
-    hide-turtle
+    ;hide-turtle
   ]
 
   ; company set up
@@ -171,7 +171,7 @@ to go
           set total-carbon-emissions total-carbon-emissions + 1
   ])
     ; Rate of human deaths :(
-    if random-float 1 < 0.10 [die]
+    if random-float 1 < 0.12 [die]
     ; Basic functionalities
     move
     reproduce
@@ -241,10 +241,6 @@ to go
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;INSERT OTHER PROCEDURES HERE
-  ask n-of 150 humans [show-turtle]
-  ask n-of 150 trees [show-turtle]
-
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   tick
@@ -261,7 +257,7 @@ to tree-reproduce
         set growth-rate random-float 0.01 ; set a random growth rate for each tree
         set shape "tree"
         set color green
-        if random 2 = 1 [hide-turtle]
+        ;if random 2 = 1 [hide-turtle]
         set size 1 ]
   ]
   ]
@@ -717,7 +713,7 @@ PLOT
 189
 1030
 331
-Average Emission Quantity Per Tick and Company
+Average Emission Quantity Per Tick
 NIL
 NIL
 0.0
