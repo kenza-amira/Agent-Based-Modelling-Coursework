@@ -264,7 +264,7 @@ to tree-reproduce
 end
 
 to plant-policy-on
-   create-trees count-good * 0.01 [
+   create-trees count-good * 0.1 [
     set age 0
     set absorption-rate random-float 5
     set growth-rate random-float 0.01 ; set a random growth rate for each tree
@@ -543,7 +543,7 @@ prob-influence
 prob-influence
 0
 0.15
-0.14
+0.02
 0.02
 1
 NIL
@@ -590,10 +590,10 @@ inheritance
 -1000
 
 PLOT
-493
-485
-1031
-650
+498
+655
+1036
+820
 Behavior Counts
 NIL
 NIL
@@ -610,10 +610,10 @@ PENS
 "poor" 1.0 0 -5298144 true "" "if ticks >= 2[plot count-poor]"
 
 PLOT
-491
-335
-1030
-474
+495
+505
+1034
+644
 # trees
 NIL
 NIL
@@ -776,7 +776,7 @@ INPUTBOX
 120
 591
 num-companies
-1200.0
+1000.0
 1
 0
 Number
@@ -845,6 +845,24 @@ Penalty Levels
 10
 117.0
 1
+
+PLOT
+496
+345
+1036
+495
+Average Penalty Per Tick of companies
+NIL
+NIL
+0.0
+10.0
+0.0
+5.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot mean [penPerTick] of companies"
 
 @#$#@#$#@
 ## WHAT IS IT?
