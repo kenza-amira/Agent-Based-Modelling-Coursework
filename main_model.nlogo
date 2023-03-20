@@ -396,9 +396,9 @@ to checkPenPerTick  ; checking for penalties
   set penPerTick 0
 
   (ifelse
-    total-carbon-emissions >= pen-lvl-3 [ set penPerTick revenueAmt * 0.05 ]
-    total-carbon-emissions >= pen-lvl-2 [ set penPerTick revenueAmt * 0.02 ]
-    total-carbon-emissions >= pen-lvl-1 [ set penPerTick revenueAmt * 0.01 ]
+    total-carbon-emissions >= pen-lvl-3 [ set penPerTick revenueAmt * pen-rate-3 ]
+    total-carbon-emissions >= pen-lvl-2 [ set penPerTick revenueAmt * pen-rate-2 ]
+    total-carbon-emissions >= pen-lvl-1 [ set penPerTick revenueAmt * pen-rate-1 ]
     )
 end
 
@@ -463,7 +463,7 @@ SLIDER
 num-average-turtles
 num-average-turtles
 100
-150
+445
 150.0
 1
 1
@@ -478,7 +478,7 @@ SLIDER
 num-bad-turtles
 num-bad-turtles
 100
-150
+260
 150.0
 1
 1
@@ -611,9 +611,9 @@ PENS
 
 PLOT
 495
-505
+501
 1034
-644
+640
 # trees
 NIL
 NIL
@@ -776,7 +776,7 @@ INPUTBOX
 120
 591
 num-companies
-1000.0
+800.0
 1
 0
 Number
@@ -815,10 +815,10 @@ pen-lvl-2
 Number
 
 INPUTBOX
-297
-556
-453
-617
+140
+656
+296
+717
 pen-lvl-3
 160000.0
 1
@@ -863,6 +863,39 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot mean [penPerTick] of companies"
+
+INPUTBOX
+303
+533
+459
+594
+pen-rate-1
+0.01
+1
+0
+Number
+
+INPUTBOX
+302
+596
+461
+657
+pen-rate-2
+0.02
+1
+0
+Number
+
+INPUTBOX
+302
+659
+458
+720
+pen-rate-3
+0.05
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
