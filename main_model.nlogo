@@ -72,7 +72,7 @@ to setup
   ;set-default-shape trees "circle"
 
   ; human set up
-  create-humans num-good-turtles [
+  create-humans num-good-humans [
     setxy random-xcor one-of (range -7 8 0.01)
     set color green
     set behavior "good"
@@ -80,7 +80,7 @@ to setup
     set carbon-emissions 0.1
     ;hide-turtle
   ]
-    create-humans num-average-turtles [
+    create-humans num-average-humans [
     setxy random-xcor one-of (range -7 8 0.01)
     set color yellow
     set behavior "average"
@@ -88,7 +88,7 @@ to setup
     set carbon-emissions 0.5
     ;hide-turtle
   ]
-    create-humans num-bad-turtles [
+    create-humans num-bad-humans [
     setxy random-xcor one-of (range -7 8 0.01)
     set color red
     set behavior "poor"
@@ -445,8 +445,8 @@ SLIDER
 317
 185
 350
-num-good-turtles
-num-good-turtles
+num-good-humans
+num-good-humans
 100
 150
 150.0
@@ -456,12 +456,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-358
-185
-391
-num-average-turtles
-num-average-turtles
+103
+357
+276
+390
+num-average-humans
+num-average-humans
 100
 445
 150.0
@@ -472,11 +472,11 @@ HORIZONTAL
 
 SLIDER
 193
-336
+317
 365
-369
-num-bad-turtles
-num-bad-turtles
+350
+num-bad-humans
+num-bad-humans
 100
 260
 150.0
@@ -487,9 +487,9 @@ HORIZONTAL
 
 SLIDER
 21
-446
+535
 213
-479
+568
 tree-growth-rate
 tree-growth-rate
 0
@@ -573,10 +573,13 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
 "Co2" 1.0 0 -16777216 true "" "if ticks >= 2[plot total-carbon-emissions]"
+"pen-1" 1.0 0 -11221820 true "" "plot-pen-up\nplotxy 0 pen-lvl-1\nplot-pen-down\nplotxy ticks pen-lvl-1"
+"pen-2" 1.0 0 -6459832 true "" "plot-pen-up\nplotxy 0 pen-lvl-2\nplot-pen-down\nplotxy ticks pen-lvl-2"
+"pen-3" 1.0 0 -2674135 true "" "plot-pen-up\nplotxy 0 pen-lvl-3\nplot-pen-down\nplotxy ticks pen-lvl-3"
 
 SWITCH
 16
@@ -614,12 +617,12 @@ PLOT
 501
 1034
 640
-# trees
+Number of Trees
 NIL
 NIL
 0.0
 20.0
-0.0
+2000.0
 3000.0
 true
 false
@@ -669,9 +672,9 @@ Humans
 
 TEXTBOX
 20
-403
+492
 170
-421
+510
 Trees
 14
 114.0
@@ -679,9 +682,9 @@ Trees
 
 TEXTBOX
 21
-425
+514
 298
-443
+532
 Sliders to select rate of tree growth and cutting speed
 10
 117.0
@@ -689,9 +692,9 @@ Sliders to select rate of tree growth and cutting speed
 
 TEXTBOX
 21
-506
+595
 171
-524
+613
 Companies
 14
 114.0
@@ -724,7 +727,7 @@ true
 false
 "" ""
 PENS
-"Emission Per Tick" 1.0 0 -2139308 true "" "plot mean [emissionQtyPerTick] of companies"
+"Emission Per Tick" 1.0 0 -2139308 true "" "if ticks > 0 [\nplot mean [emissionQtyPerTick] of companies]"
 
 MONITOR
 1031
@@ -761,9 +764,9 @@ mean [netPenalty] of companies
 
 INPUTBOX
 288
-412
+501
 391
-472
+561
 num-trees
 2400.0
 1
@@ -772,9 +775,9 @@ Number
 
 INPUTBOX
 21
-530
+619
 120
-591
+680
 num-companies
 800.0
 1
@@ -794,9 +797,9 @@ mean [age] of companies
 
 INPUTBOX
 140
-531
+620
 296
-592
+681
 pen-lvl-1
 120000.0
 1
@@ -805,9 +808,9 @@ Number
 
 INPUTBOX
 140
-590
+679
 296
-651
+740
 pen-lvl-2
 140000.0
 1
@@ -816,9 +819,9 @@ Number
 
 INPUTBOX
 140
-656
+745
 296
-717
+806
 pen-lvl-3
 160000.0
 1
@@ -836,22 +839,12 @@ plant-policy
 1
 -1000
 
-TEXTBOX
-143
-514
-293
-532
-Penalty Levels
-10
-117.0
-1
-
 PLOT
 496
 345
 1036
 495
-Average Penalty Per Tick of companies
+Average Penalty Per Tick of Companies
 NIL
 NIL
 0.0
@@ -862,13 +855,13 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot mean [penPerTick] of companies"
+"Average Penalty Per Tick of Companies" 1.0 0 -16777216 true "" "if ticks > 0 [\nplot mean [penPerTick] of companies]"
 
 INPUTBOX
 303
-533
+622
 459
-594
+683
 pen-rate-1
 0.01
 1
@@ -877,9 +870,9 @@ Number
 
 INPUTBOX
 302
-596
+685
 461
-657
+746
 pen-rate-2
 0.02
 1
@@ -888,14 +881,64 @@ Number
 
 INPUTBOX
 302
-659
+748
 458
-720
+809
 pen-rate-3
 0.05
 1
 0
 Number
+
+TEXTBOX
+307
+825
+457
+843
+Penalty Rates\n
+13
+116.0
+1
+
+TEXTBOX
+307
+844
+457
+900
+The penalties on the company agents are applied as a deduction of the percentage of their net revenue.
+11
+118.0
+0
+
+TEXTBOX
+145
+824
+295
+842
+Penalty Levels
+13
+116.0
+1
+
+TEXTBOX
+145
+846
+295
+902
+These are the levels of CO2 at which the revenue penalties are enforced on each company agent
+11
+118.0
+1
+
+TEXTBOX
+21
+398
+425
+454
+Initial values for the number of humans with good, bad and average habits with regards to the environment.
+11
+118.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
