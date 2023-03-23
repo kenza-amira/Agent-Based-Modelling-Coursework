@@ -441,10 +441,10 @@ ticks
 30.0
 
 SLIDER
-13
-317
-185
-350
+23
+238
+195
+271
 num-good-humans
 num-good-humans
 100
@@ -456,10 +456,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-103
-357
+295
 276
-390
+468
+309
 num-average-humans
 num-average-humans
 100
@@ -471,10 +471,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-193
-317
-365
-350
+203
+238
+375
+271
 num-bad-humans
 num-bad-humans
 100
@@ -486,10 +486,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-22
-483
-214
-516
+25
+376
+217
+409
 tree-growth-rate
 tree-growth-rate
 0
@@ -535,10 +535,10 @@ NIL
 1
 
 SLIDER
-13
-169
-185
-202
+236
+102
+408
+135
 prob-influence
 prob-influence
 0
@@ -550,10 +550,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-13
-256
-141
-289
+23
+198
+151
+231
 reward-driven
 reward-driven
 0
@@ -582,10 +582,10 @@ PENS
 "pen-3" 1.0 0 -2674135 true "" "plot-pen-up\nplotxy 0 pen-lvl-3\nplot-pen-down\nplotxy ticks pen-lvl-3"
 
 SWITCH
-16
-86
-127
-119
+23
+105
+134
+138
 inheritance
 inheritance
 1
@@ -631,70 +631,70 @@ PENS
 "trees" 1.0 0 -13840069 true "" "if ticks >= 2[plot count trees]"
 
 TEXTBOX
-16
-123
-453
-161
-Herd Behavior Modelling\nIf not 0, prob-influence is the probability of being influenced by surrounding humans\nElse, no humans will be influences
+236
+45
+482
+94
+Herd Behavior Modelling\nIf not 0, prob-influence is the probability of being influenced by surrounding humans\nElse, no humans will be influenced
 10
 117.0
 1
 
 TEXTBOX
-20
-57
-453
-81
+21
+48
+224
+98
 The Inheritance switch, models wether newborns take one of the parent's behavior or if they randomly are given a behavior
 10
 117.0
 1
 
 TEXTBOX
-16
-210
-420
-249
+25
+153
+429
+192
 If the reward-driven switch is on, humans will take into account carbon-tax and will alter their emissions to maximize a reward. The plant policy encourages good humans to plant trees
 10
 117.0
 1
 
 TEXTBOX
-19
-33
-169
-51
+22
+13
+172
+31
 Humans
 14
 114.0
 1
 
 TEXTBOX
-20
-440
-170
-458
+23
+332
+173
+350
 Trees
 14
 114.0
 1
 
 TEXTBOX
-22
-462
-299
-480
+25
+353
+302
+371
 Sliders to select rate of tree growth and cutting speed
 10
 117.0
 1
 
 TEXTBOX
-23
-553
-173
-571
+26
+425
+176
+443
 Companies
 14
 114.0
@@ -744,7 +744,7 @@ MONITOR
 1036
 319
 1204
-365
+364
 Average Company Scale
 mean [scale] of companies
 3
@@ -763,10 +763,10 @@ mean [netPenalty] of companies
 11
 
 INPUTBOX
-290
-482
-393
-542
+305
+352
+408
+412
 num-trees
 2400.0
 1
@@ -774,10 +774,10 @@ num-trees
 Number
 
 INPUTBOX
-23
-578
-122
-639
+26
+452
+126
+513
 num-companies
 800.0
 1
@@ -788,7 +788,7 @@ MONITOR
 1036
 275
 1204
-321
+320
 Average Company Age
 mean [age] of companies
 1
@@ -796,10 +796,10 @@ mean [age] of companies
 11
 
 INPUTBOX
-23
-706
-179
-767
+173
+416
+331
+477
 pen-lvl-1
 220000.0
 1
@@ -807,10 +807,10 @@ pen-lvl-1
 Number
 
 INPUTBOX
-23
-765
-179
-826
+173
+476
+331
+537
 pen-lvl-2
 240000.0
 1
@@ -818,10 +818,10 @@ pen-lvl-2
 Number
 
 INPUTBOX
-23
-832
-179
-893
+173
+543
+331
+604
 pen-lvl-3
 260000.0
 1
@@ -829,10 +829,10 @@ pen-lvl-3
 Number
 
 SWITCH
-150
-256
-282
-289
+159
+198
+291
+231
 plant-policy
 plant-policy
 1
@@ -858,10 +858,10 @@ PENS
 "Average Penalty Per Tick of Companies" 1.0 0 -13791810 true "" "if ticks > 0 [\nplot mean [penPerTick] of companies]"
 
 INPUTBOX
-186
-709
-342
-770
+332
+416
+490
+477
 pen-rate-1
 0.01
 1
@@ -869,10 +869,10 @@ pen-rate-1
 Number
 
 INPUTBOX
-186
-772
-345
-833
+332
+481
+492
+542
 pen-rate-2
 0.02
 1
@@ -880,10 +880,10 @@ pen-rate-2
 Number
 
 INPUTBOX
-186
-835
-342
-896
+332
+543
+490
+604
 pen-rate-3
 0.05
 1
@@ -891,60 +891,60 @@ pen-rate-3
 Number
 
 TEXTBOX
-190
-912
-340
-930
+335
+619
+485
+637
 Penalty Rates\n
 13
 116.0
 1
 
 TEXTBOX
-190
-931
-340
-987
+335
+636
+485
+712
 The penalties on the company agents are applied as a deduction of the percentage of their net revenue.
 11
 118.0
 0
 
 TEXTBOX
-29
-911
-179
-929
+178
+619
+328
+637
 Penalty Levels
 13
 116.0
 1
 
 TEXTBOX
-29
-932
-179
-988
+178
+642
+328
+703
 These are the levels of CO2 at which the revenue penalties are enforced on each company agent
 11
 118.0
 1
 
 TEXTBOX
-21
-398
-425
-454
+23
+279
+295
+337
 Initial values for the number of humans with good, bad and average habits with regards to the environment.
 11
-118.0
+117.0
 1
 
 INPUTBOX
-23
-643
-142
-703
+26
+515
+154
+576
 init-carbon-emissions
 200000.0
 1
@@ -1317,6 +1317,55 @@ NetLogo 6.3.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>total-carbon-emissions</metric>
+    <steppedValueSet variable="num-trees" first="500" step="500" last="3000"/>
+  </experiment>
+  <experiment name="numTrees" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>total-carbon-emissions</metric>
+    <metric>mean [revenueAmt] of companies</metric>
+    <metric>count trees</metric>
+    <metric>count-poor</metric>
+    <steppedValueSet variable="num-trees" first="500" step="500" last="3000"/>
+  </experiment>
+  <experiment name="numCompanies" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>total-carbon-emissions</metric>
+    <metric>mean [revenueAmt] of companies</metric>
+    <metric>count trees</metric>
+    <metric>count-poor</metric>
+    <steppedValueSet variable="num-companies" first="400" step="200" last="1400"/>
+  </experiment>
+  <experiment name="penLvl3" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>total-carbon-emissions</metric>
+    <metric>mean [revenueAmt] of companies</metric>
+    <metric>count trees</metric>
+    <metric>count-poor</metric>
+    <steppedValueSet variable="pen-rate-3" first="0.05" step="0.01" last="0.1"/>
+  </experiment>
+  <experiment name="penLvl3Dec" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="200"/>
+    <metric>total-carbon-emissions</metric>
+    <metric>mean [revenueAmt] of companies</metric>
+    <metric>count trees</metric>
+    <metric>count-poor</metric>
+    <steppedValueSet variable="pen-rate-3" first="0.02" step="0.01" last="0.05"/>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
