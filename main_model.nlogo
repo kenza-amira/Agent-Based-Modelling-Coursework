@@ -47,7 +47,7 @@ to setup
   reset-ticks
 
   ;Carbon emissions
-  set total-carbon-emissions 100000
+  set total-carbon-emissions init-carbon-emissions
 
   ; the carbon tax to individuals
   set carbon-tax 0.1
@@ -414,9 +414,9 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @#$#@#$#@
 GRAPHICS-WINDOW
-1293
+1229
 15
-1796
+1732
 519
 -1
 -1
@@ -486,10 +486,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-21
-535
-213
-568
+22
+483
+214
+516
 tree-growth-rate
 tree-growth-rate
 0
@@ -501,10 +501,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-1207
-36
-1270
-69
+1055
+99
+1120
+160
 NIL
 go
 T
@@ -518,10 +518,10 @@ NIL
 1
 
 BUTTON
-1207
-75
-1270
-108
+1125
+99
+1184
+161
 NIL
 setup
 NIL
@@ -561,16 +561,16 @@ reward-driven
 -1000
 
 PLOT
-491
+496
 15
-1031
-188
+1036
+253
 Co2 Level
 NIL
 NIL
 0.0
 10.0
-0.0
+80000.0
 10.0
 true
 true
@@ -593,10 +593,10 @@ inheritance
 -1000
 
 PLOT
-498
-655
-1036
-820
+1229
+519
+1732
+685
 Behavior Counts
 NIL
 NIL
@@ -613,10 +613,10 @@ PENS
 "poor" 1.0 0 -5298144 true "" "if ticks >= 2[plot count-poor]"
 
 PLOT
-495
-501
-1034
-640
+498
+546
+1038
+692
 Number of Trees
 NIL
 NIL
@@ -672,39 +672,39 @@ Humans
 
 TEXTBOX
 20
-492
+440
 170
-510
+458
 Trees
 14
 114.0
 1
 
 TEXTBOX
-21
-514
-298
-532
+22
+462
+299
+480
 Sliders to select rate of tree growth and cutting speed
 10
 117.0
 1
 
 TEXTBOX
-21
-595
-171
-613
+23
+553
+173
+571
 Companies
 14
 114.0
 1
 
 MONITOR
-1033
-44
-1198
-89
+1035
+15
+1200
+60
 Total Carbon Emission
 total-carbon-emissions
 2
@@ -712,11 +712,11 @@ total-carbon-emissions
 11
 
 PLOT
-492
-189
-1030
-331
-Average Emission Quantity Per Tick
+498
+252
+1037
+412
+Average Emission Quantity of Companies Per Tick
 NIL
 NIL
 0.0
@@ -730,10 +730,10 @@ PENS
 "Emission Per Tick" 1.0 0 -2139308 true "" "if ticks > 0 [\nplot mean [emissionQtyPerTick] of companies]"
 
 MONITOR
-1031
-283
-1198
-328
+1036
+365
+1203
+410
 Average Emission of Companies
 mean [emissionQty] of companies
 3
@@ -741,10 +741,10 @@ mean [emissionQty] of companies
 11
 
 MONITOR
-1031
-238
-1199
-283
+1036
+319
+1204
+365
 Average Company Scale
 mean [scale] of companies
 3
@@ -752,10 +752,10 @@ mean [scale] of companies
 11
 
 MONITOR
-1030
-193
-1199
-238
+1035
+499
+1204
+544
 Average Net Penalty
 mean [netPenalty] of companies
 3
@@ -763,10 +763,10 @@ mean [netPenalty] of companies
 11
 
 INPUTBOX
-288
-501
-391
-561
+290
+482
+393
+542
 num-trees
 2400.0
 1
@@ -774,10 +774,10 @@ num-trees
 Number
 
 INPUTBOX
-21
-619
-120
-680
+23
+578
+122
+639
 num-companies
 800.0
 1
@@ -785,10 +785,10 @@ num-companies
 Number
 
 MONITOR
-1030
-145
-1199
-190
+1036
+275
+1204
+321
 Average Company Age
 mean [age] of companies
 1
@@ -796,34 +796,34 @@ mean [age] of companies
 11
 
 INPUTBOX
-140
-620
-296
-681
+23
+706
+179
+767
 pen-lvl-1
-120000.0
+220000.0
 1
 0
 Number
 
 INPUTBOX
-140
-679
-296
-740
+23
+765
+179
+826
 pen-lvl-2
-140000.0
+240000.0
 1
 0
 Number
 
 INPUTBOX
-140
-745
-296
-806
+23
+832
+179
+893
 pen-lvl-3
-160000.0
+260000.0
 1
 0
 Number
@@ -840,11 +840,11 @@ plant-policy
 -1000
 
 PLOT
-496
-345
-1036
-495
-Average Penalty Per Tick of Companies
+498
+410
+1038
+545
+Average Penalty of Companies Per Tick
 NIL
 NIL
 0.0
@@ -855,13 +855,13 @@ true
 false
 "" ""
 PENS
-"Average Penalty Per Tick of Companies" 1.0 0 -16777216 true "" "if ticks > 0 [\nplot mean [penPerTick] of companies]"
+"Average Penalty Per Tick of Companies" 1.0 0 -13791810 true "" "if ticks > 0 [\nplot mean [penPerTick] of companies]"
 
 INPUTBOX
-303
-622
-459
-683
+186
+709
+342
+770
 pen-rate-1
 0.01
 1
@@ -869,10 +869,10 @@ pen-rate-1
 Number
 
 INPUTBOX
-302
-685
-461
-746
+186
+772
+345
+833
 pen-rate-2
 0.02
 1
@@ -880,10 +880,10 @@ pen-rate-2
 Number
 
 INPUTBOX
-302
-748
-458
-809
+186
+835
+342
+896
 pen-rate-3
 0.05
 1
@@ -891,40 +891,40 @@ pen-rate-3
 Number
 
 TEXTBOX
-307
-825
-457
-843
+190
+912
+340
+930
 Penalty Rates\n
 13
 116.0
 1
 
 TEXTBOX
-307
-844
-457
-900
+190
+931
+340
+987
 The penalties on the company agents are applied as a deduction of the percentage of their net revenue.
 11
 118.0
 0
 
 TEXTBOX
-145
-824
-295
-842
+29
+911
+179
+929
 Penalty Levels
 13
 116.0
 1
 
 TEXTBOX
-145
-846
-295
-902
+29
+932
+179
+988
 These are the levels of CO2 at which the revenue penalties are enforced on each company agent
 11
 118.0
@@ -939,6 +939,17 @@ Initial values for the number of humans with good, bad and average habits with r
 11
 118.0
 1
+
+INPUTBOX
+23
+643
+142
+703
+init-carbon-emissions
+200000.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
